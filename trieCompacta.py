@@ -79,9 +79,52 @@ class TrieCompacta:
         #retorna o código se encontrou a string (talvez mudar esse retorno)
         return noAtual.codigo if noAtual.codigo is not None else None
 
+    def remover(self, string):
+        def removerAux(noAtual, string, i):
+            if noAtual is None:
+                return False  #não há nada para remover
 
-    def imprimir_trie(self):
-        def imprimir_no(no, nivel=0):
+            #fim da recursao, chegou no final da string e ao nó
+            if i == len(string):
+                if noAtual.codigo is not None:
+                    noAtual.codigo = None  #remove o codigo
+
+                    #verifica se não tem filhos
+                    if all(filho is None for filho in noAtual.descendentes):
+                        return True  #indica que o nó pode ser removido, não tem descendentes
+                    return False  #nó não pode ser removido
+
+                return False  #a string não tem código associado
+
+            #continua na árvore com o próximo caractere da string se não tiver chegado ao final
+            indice = int(string[i])
+            proximoNo = noAtual.descendentes[indice]
+            if proximoNo is None:
+                return False  #não encontrou a string para remover
+
+            #chamando recursivamente para o próximo nó
+            if removerAux(proximoNo, string, i + len(proximoNo.prefixo)):
+                noAtual.descendentes[indice] = None  #remove o ponteiro para o nó
+
+                #verifica se o nó atual pode ser compactado
+                filhos = [filho for filho in noAtual.descendentes if filho is not None]
+                if len(filhos) == 1 and noAtual.codigo is None:
+                    #compacta o nó atual com seu único filho
+                    filho = filhos[0]
+                    noAtual.prefixo += filho.prefixo
+                    noAtual.codigo = filho.codigo
+                    noAtual.descendentes = filho.descendentes
+
+                #retorna True se o nó atual ainda pode ser removido
+                return all(child is None for child in noAtual.descendentes) and noAtual.codigo is None
+
+            return False  # o nó não pode ser removido
+
+        #funcao auxiliar que se inicia na raiz com indice 0
+        removerAux(self.raiz, string, 0)
+        
+    def imprimir(self):
+        def imprimirNo(no, nivel=0):
             if no is None:
                 return
 
@@ -99,14 +142,12 @@ class TrieCompacta:
                 filhos.append("Direita (1)")
 
             if filhos:
-                print(f"{indentacao}  Filhos: {', '.join(filhos)}")
+                print(f"{indentacao}  Ramos: {', '.join(filhos)}")
 
             if no.descendentes[0] is not None:
-                print(f"{indentacao}  Filho à esquerda (0):")
-                imprimir_no(no.descendentes[0], nivel + 1)
+                print(f"{indentacao}  Ramo à esquerda (0):")
+                imprimirNo(no.descendentes[0], nivel + 1)
             if no.descendentes[1] is not None:
-                print(f"{indentacao}  Filho à direita (1):")
-                imprimir_no(no.descendentes[1], nivel + 1)
-
-        print("Estrutura da Trie Compacta:")
-        imprimir_no(self.raiz)
+                print(f"{indentacao}  Ramo à direita (1):")
+                imprimirNo(no.descendentes[1], nivel + 1)
+        imprimirNo(self.raiz)
