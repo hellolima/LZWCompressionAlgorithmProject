@@ -52,7 +52,9 @@ class TrieCompacta:
                 novoNoInterno.descendentes[int(string[i])] = novoNoFolha
                 return
 
-        #string já está na trie
+        if noAtual.codigo is not None: #encontrou exatamente a mesma string, ignora
+            return
+        
         noAtual.codigo = codigo
 
     def buscar(self, string): #realiza uma busca na trie pela string
