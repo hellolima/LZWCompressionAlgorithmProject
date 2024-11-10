@@ -12,12 +12,12 @@ class TrieCompacta:
         noAtual = self.raiz
         i = 0  #índice para o caractere atual de 'string'
         
-        #caminha pela trie para inserir o novo prefixo
+        #caminha pela trie para inserir o novo prefixo enquanto houver caracteres
         while i < len(string):
             #encontra o próximo índice de descendente (0 ou 1)
             indice = int(string[i])
             
-            if noAtual.descendentes[indice] is None:
+            if noAtual.descendentes[indice] is None: #trie vazia ou não há nenhum prefixo a ser compartilhado
                 #novo nó com o restante do prefixo da string
                 novoNo = NoTrie()
                 novoNo.prefixo = string[i:]
@@ -38,7 +38,7 @@ class TrieCompacta:
             else:
                 #divide o nó existente e insere o novo
                 novoNoInterno = NoTrie()
-                novoNoInterno.prefixo = proximoNo.prefixo[:j]
+                novoNoInterno.prefixo = proximoNo.prefixo[:j] #até o prefixo compartilhado
                 noAtual.descendentes[indice] = novoNoInterno
                 
                 #ajusta o nó existente com o sufixo restante
@@ -52,7 +52,7 @@ class TrieCompacta:
                 novoNoInterno.descendentes[int(string[i])] = novoNoFolha
                 return
 
-        if noAtual.codigo is not None: #encontrou exatamente a mesma string, ignora
+        if noAtual.codigo is not None: #encontrou exatamente a mesma string e já tem codigo associado, ignora
             return
         
         noAtual.codigo = codigo
@@ -79,7 +79,7 @@ class TrieCompacta:
         #retorna o código se encontrou a string (talvez mudar esse retorno)
         return noAtual.codigo if noAtual.codigo is not None else None
 
-    
+
     def imprimir_trie(self):
         def imprimir_no(no, nivel=0):
             if no is None:
