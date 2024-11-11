@@ -7,6 +7,6 @@ class lzwTamanhoFixo:
         self.iniciarDicionario()
         
     def iniciarDicionario(self):
-        for i in range(255):
+        for i in range(256):
             representacaoBinaria = format(i, '08b')
             self.dicionario.inserir(representacaoBinaria, i)

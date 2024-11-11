@@ -7,7 +7,7 @@ class NoTrie:
 class TrieCompacta:
     def __init__(self):
         self.raiz = NoTrie()  #começamos a árvore pela raiz que é vazia
-        self.tamanho = 1
+        self.tamanho = 0
 
     def inserir(self, string, codigo):
         noAtual = self.raiz
