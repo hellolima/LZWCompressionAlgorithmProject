@@ -1,12 +1,9 @@
 from trieCompacta import *
+from lzwTamanhoFixo import *
 
-trie = TrieCompacta()
-trie.inserir("101", 1)
-trie.inserir("1001", 2)
-trie.inserir("111", 3)
-trie.inserir("00", 4)
 
-trie.imprimir()
-print("*" * 10)
-trie.remover('101')
-trie.imprimir()
+instanciaSolucao1 = lzwTamanhoFixo()
+
+print(instanciaSolucao1.dicionario.getTamanho())
+
+print(instanciaSolucao1.dicionario.buscar('00000000'))

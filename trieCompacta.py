@@ -7,6 +7,7 @@ class NoTrie:
 class TrieCompacta:
     def __init__(self):
         self.raiz = NoTrie()  #começamos a árvore pela raiz que é vazia
+        self.tamanho = 1
 
     def inserir(self, string, codigo):
         noAtual = self.raiz
@@ -23,6 +24,7 @@ class TrieCompacta:
                 novoNo.prefixo = string[i:]
                 novoNo.codigo = codigo
                 noAtual.descendentes[indice] = novoNo
+                self.tamanho += 1
                 return
             
             #verifica o prefixo comum entre a string e nó existente
@@ -50,21 +52,24 @@ class TrieCompacta:
                 novoNoFolha.prefixo = string[i:]
                 novoNoFolha.codigo = codigo
                 novoNoInterno.descendentes[int(string[i])] = novoNoFolha
+                self.tamanho += 1
                 return
 
         if noAtual.codigo is not None: #encontrou exatamente a mesma string e já tem codigo associado, ignora
             return
         
         noAtual.codigo = codigo
+        self.tamanho += 1
 
     def buscar(self, string): #realiza uma busca na trie pela string
         noAtual = self.raiz
         i = 0
-        
+        print('entrou para buscar')
         #caminha na Trie acumulando o prefixo
         while i < len(string):
             indice = int(string[i])
             if noAtual.descendentes[indice] is None:
+                print('nao achou')
                 return None  #não encontrado
             
             noAtual = noAtual.descendentes[indice]
@@ -72,8 +77,10 @@ class TrieCompacta:
             while j < len(noAtual.prefixo) and i < len(string) and noAtual.prefixo[j] == string[i]:
                 i += 1
                 j += 1
+                print('entrou no loop while')
             
             if j < len(noAtual.prefixo):
+                print('nao achou 2')
                 return None  #prefixo diverge, não encontrado
         
         #retorna o código se encontrou a string (talvez mudar esse retorno)
@@ -88,6 +95,7 @@ class TrieCompacta:
             if i == len(string):
                 if noAtual.codigo is not None:
                     noAtual.codigo = None  #remove o codigo
+                    self.tamanho -= 1
 
                     #verifica se não tem filhos
                     if all(filho is None for filho in noAtual.descendentes):
@@ -151,3 +159,6 @@ class TrieCompacta:
                 print(f"{indentacao}  Ramo à direita (1):")
                 imprimirNo(no.descendentes[1], nivel + 1)
         imprimirNo(self.raiz)
+
+    def getTamanho(self):
+        return self.tamanho
