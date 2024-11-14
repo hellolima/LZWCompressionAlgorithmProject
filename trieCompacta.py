@@ -58,8 +58,8 @@ class TrieCompacta:
         if noAtual.codigo is not None: #encontrou exatamente a mesma string e já tem codigo associado, ignora
             return
         
-        noAtual.codigo = codigo
         self.tamanho += 1
+        noAtual.codigo = codigo
 
     def buscar(self, string): #realiza uma busca na trie pela string
         noAtual = self.raiz
