@@ -64,12 +64,10 @@ class TrieCompacta:
     def buscar(self, string): #realiza uma busca na trie pela string
         noAtual = self.raiz
         i = 0
-        print('entrou para buscar')
         #caminha na Trie acumulando o prefixo
         while i < len(string):
             indice = int(string[i])
             if noAtual.descendentes[indice] is None:
-                print('nao achou')
                 return None  #não encontrado
             
             noAtual = noAtual.descendentes[indice]
@@ -77,10 +75,8 @@ class TrieCompacta:
             while j < len(noAtual.prefixo) and i < len(string) and noAtual.prefixo[j] == string[i]:
                 i += 1
                 j += 1
-                print('entrou no loop while')
             
             if j < len(noAtual.prefixo):
-                print('nao achou 2')
                 return None  #prefixo diverge, não encontrado
         
         #retorna o código se encontrou a string (talvez mudar esse retorno)

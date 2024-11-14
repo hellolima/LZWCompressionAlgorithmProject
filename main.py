@@ -1,22 +1,24 @@
-from trieCompacta import *
-from lzwTamanhoFixo import *
-from utils import *
+from trieCompacta import *  
+from lzwTamanhoFixo import *  
+from utils import *  
 
 instanciaSolucao1 = lzwTamanhoFixo()
 
 with open('entrada.txt', 'r', encoding='utf-8') as arquivo:
     texto = arquivo.read()
-    
+
 binarioTexto = converterTextoBinario12bits(texto)
 
-codigo = 0  # Código inicial para o primeiro prefixo, você pode ajustar conforme necessário
-for string in binarioTexto:
-    # Inserir na trie
-    dicionario.inserir(string, codigo)
-    codigo += 1  # Incrementa o código para o próximo prefixo
+codigos = instanciaSolucao1.codificar(binarioTexto)
+print("Códigos Codificados:", codigos)
 
-# Verificando o tamanho da trie após as inserções
-print(f"Tamanho da trie após inserções: {dicionario.getTamanho()}")
+with open('codigosCodificados.txt', 'w', encoding='utf-8') as arquivo_saida:
+    arquivo_saida.write(' '.join(map(str, codigos)))
 
-# Opcional: Para testar a busca ou impressão da trie
-dicionario.imprimir()
+print("Códigos gravados com sucesso no arquivo 'codigosCodificados.txt'.")
+
+asciiTexto = converterParaASCII(texto)
+with open('entradaEmASCII.txt', 'w', encoding='utf-8') as arquivo_saida:
+    arquivo_saida.write(' '.join(map(str, asciiTexto)))
+
+print("Arquivo com codificação ASCII gravado com sucesso em 'entradaEmASCII.txt'.")
