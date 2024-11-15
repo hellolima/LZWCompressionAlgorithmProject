@@ -7,6 +7,7 @@ class NoTrie:
 class TrieCompacta:
     def __init__(self):
         self.raiz = NoTrie()  #começamos a árvore pela raiz que é vazia
+        self.tamanho = 0
 
     def inserir(self, string, codigo):
         noAtual = self.raiz
@@ -23,6 +24,7 @@ class TrieCompacta:
                 novoNo.prefixo = string[i:]
                 novoNo.codigo = codigo
                 noAtual.descendentes[indice] = novoNo
+                self.tamanho += 1
                 return
             
             #verifica o prefixo comum entre a string e nó existente
@@ -50,17 +52,18 @@ class TrieCompacta:
                 novoNoFolha.prefixo = string[i:]
                 novoNoFolha.codigo = codigo
                 novoNoInterno.descendentes[int(string[i])] = novoNoFolha
+                self.tamanho += 1
                 return
 
         if noAtual.codigo is not None: #encontrou exatamente a mesma string e já tem codigo associado, ignora
             return
         
+        self.tamanho += 1
         noAtual.codigo = codigo
 
-    def buscar(self, string): #realiza uma busca na trie pela string
+    def buscarString(self, string): #realiza uma busca na trie pela string
         noAtual = self.raiz
         i = 0
-        
         #caminha na Trie acumulando o prefixo
         while i < len(string):
             indice = int(string[i])
@@ -79,6 +82,29 @@ class TrieCompacta:
         #retorna o código se encontrou a string (talvez mudar esse retorno)
         return noAtual.codigo if noAtual.codigo is not None else None
 
+    def buscarCodigo(self, codigo):
+        # Função auxiliar que realiza a busca recursivamente
+        def buscarNo(noAtual, prefixoAtual):
+            if noAtual is None:
+                return None
+
+            # Verifica se o nó atual tem o código procurado
+            if noAtual.codigo == codigo:
+                return prefixoAtual + noAtual.prefixo
+
+            # Continua a busca nos descendentes (0 ou 1)
+            for i in range(2):
+                if noAtual.descendentes[i] is not None:
+                    resultado = buscarNo(noAtual.descendentes[i], prefixoAtual + noAtual.prefixo)
+                    if resultado:
+                        return resultado
+
+            return None
+
+        # Inicia a busca a partir da raiz
+        return buscarNo(self.raiz, "")
+
+
     def remover(self, string):
         def removerAux(noAtual, string, i):
             if noAtual is None:
@@ -88,6 +114,7 @@ class TrieCompacta:
             if i == len(string):
                 if noAtual.codigo is not None:
                     noAtual.codigo = None  #remove o codigo
+                    self.tamanho -= 1
 
                     #verifica se não tem filhos
                     if all(filho is None for filho in noAtual.descendentes):
@@ -151,3 +178,6 @@ class TrieCompacta:
                 print(f"{indentacao}  Ramo à direita (1):")
                 imprimirNo(no.descendentes[1], nivel + 1)
         imprimirNo(self.raiz)
+
+    def getTamanho(self):
+        return self.tamanho
