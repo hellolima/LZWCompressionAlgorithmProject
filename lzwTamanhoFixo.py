@@ -3,8 +3,8 @@ from trieCompacta import *
 class lzwTamanhoFixo:
     def __init__(self):
         self.dicionario = TrieCompacta()
-        self.quantidadeMaxCodigos = pow(2, 12)
-        self.iniciarDicionario()
+        self.quantidadeMaxCodigos = pow(2, 12) #limitando a 4096 codigos
+        self.iniciarDicionario() 
         
     def iniciarDicionario(self):
         for i in range(256):
@@ -12,30 +12,66 @@ class lzwTamanhoFixo:
             self.dicionario.inserir(representacaoBinaria, i)
             
     def codificar(self, texto):
-        codigos_codificados = []
+        codificacoes = []
         prefixo = ''
         
         for caractere in texto:
-            novo_prefixo = prefixo + caractere
-            print("Novo prefixo: ", novo_prefixo)
-    
-            codigo = self.dicionario.buscar(novo_prefixo)
-            print("Codigo que foi encontrado: ", codigo)
+            novoPrefixo = prefixo + caractere
+
+            codigo = self.dicionario.buscarString(novoPrefixo)
             
             if codigo is not None: 
-                prefixo = novo_prefixo
-                print("Prefixo: ", prefixo)
+                prefixo = novoPrefixo
             else:
-                codigo_prefixo = self.dicionario.buscar(prefixo)
-                codigos_codificados.append(codigo_prefixo)
+                codigoPrefixo = self.dicionario.buscarString(prefixo)
+                codificacoes.append(format(codigoPrefixo, '012b'))
 
                 if self.dicionario.getTamanho() < self.quantidadeMaxCodigos:
-                    self.dicionario.inserir(novo_prefixo, self.dicionario.getTamanho())
+                    self.dicionario.inserir(novoPrefixo, self.dicionario.getTamanho())
+                
+                else:
+                    pass #simplesmente para de adicionar
                 
                 prefixo = caractere
         
         if prefixo:
-            codigo_prefixo = self.dicionario.buscar(prefixo)
-            codigos_codificados.append(codigo_prefixo)
+            codigoPrefixo = self.dicionario.buscarString(prefixo)
+            codificacoes.append(format(codigoPrefixo, '012b'))
         
-        return codigos_codificados
+        return codificacoes
+
+    
+    def decodificar(self, codificacao): #codificacao é uma lista com todos os codigos
+        prefixoAnterior = ''
+        sufixo = ''
+        sequenciaCodigo = ''
+        prefixo = ''
+        resultado = []
+        novoCodigo = 256
+        
+        cW = codificacao.pop(0) #isso sempre sera uma raiz. cW = primeiro codigo da lista
+        sequenciaCodigo = self.dicionario.buscarCodigo(cW)
+        resultado.append(sequenciaCodigo)
+        
+        prefixo = sequenciaCodigo
+        for cW in codificacao:
+            if self.dicionario.buscarCodigo(cW) is not None:#significa que essa string ja esta no diiconario
+                sequenciaCodigo = self.dicionario.buscarCodigo(cW)
+                resultado.append(sequenciaCodigo)
+                prefixoAnterior = prefixo
+                sufixo = sequenciaCodigo[:12] #lembrar que quando o arquivo base fala "primeiro caracter da string cw" estamos querendo os primeiros 12 bits.
+                novaString = prefixoAnterior + sufixo
+                self.dicionario.inserir(novaString, novoCodigo)
+                novoCodigo += 1
+            else:
+                prefixoAnterior = prefixo
+                sufixo = prefixo[:12]
+                
+                novaString = prefixoAnterior + sufixo
+                resultado.append(novaString)
+                self.dicionario.inserir(novaString, novoCodigo)
+                novoCodigo += 1
+                
+            prefixo = sequenciaCodigo
+        
+        return ''.join(resultado)

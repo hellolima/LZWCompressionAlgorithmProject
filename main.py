@@ -2,23 +2,36 @@ from trieCompacta import *
 from lzwTamanhoFixo import *  
 from utils import *  
 
-instanciaSolucao1 = lzwTamanhoFixo()
+instanciaCodificacao = lzwTamanhoFixo()
 
 with open('entrada.txt', 'r', encoding='utf-8') as arquivo:
     texto = arquivo.read()
 
 binarioTexto = converterTextoBinario12bits(texto)
 
-codigos = instanciaSolucao1.codificar(binarioTexto)
-print("Códigos Codificados:", codigos)
+codigos = instanciaCodificacao.codificar(binarioTexto)
 
-with open('codigosCodificados.txt', 'w', encoding='utf-8') as arquivo_saida:
-    arquivo_saida.write(' '.join(map(str, codigos)))
+with open('codificacao.txt', 'w', encoding='utf-8') as arquivo_saida:
+    arquivo_saida.write(''.join(map(str, codigos)))
 
-print("Códigos gravados com sucesso no arquivo 'codigosCodificados.txt'.")
+print("Códigos gravados com sucesso no arquivo 'codificacao.txt'.")
 
-asciiTexto = converterParaASCII(texto)
-with open('entradaEmASCII.txt', 'w', encoding='utf-8') as arquivo_saida:
-    arquivo_saida.write(' '.join(map(str, asciiTexto)))
+instanciaDecodificacao = lzwTamanhoFixo()
 
-print("Arquivo com codificação ASCII gravado com sucesso em 'entradaEmASCII.txt'.")
+sequenciaCodificada = []
+
+with open('codificacao.txt', 'r', encoding='utf-8') as arquivo:
+    for linha in arquivo:
+        linha = linha.strip()
+
+        for i in range(0, len(linha), 12):
+            bloco = linha[i:i+12]  
+            numero = int(bloco, 2)
+            sequenciaCodificada.append(numero)
+            
+sequenciaDecodificada = instanciaDecodificacao.decodificar(sequenciaCodificada)
+
+with open('saidaDecodificada.txt', 'w', encoding='utf-8') as arquivo_saida:
+    arquivo_saida.write(''.join(sequenciaDecodificada))
+
+print("Arquivo com a sequência decodificada gravado com sucesso em 'saidaDecodificada.txt'.")

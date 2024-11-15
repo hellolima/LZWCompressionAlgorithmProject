@@ -61,7 +61,7 @@ class TrieCompacta:
         self.tamanho += 1
         noAtual.codigo = codigo
 
-    def buscar(self, string): #realiza uma busca na trie pela string
+    def buscarString(self, string): #realiza uma busca na trie pela string
         noAtual = self.raiz
         i = 0
         #caminha na Trie acumulando o prefixo
@@ -81,6 +81,29 @@ class TrieCompacta:
         
         #retorna o código se encontrou a string (talvez mudar esse retorno)
         return noAtual.codigo if noAtual.codigo is not None else None
+
+    def buscarCodigo(self, codigo):
+        # Função auxiliar que realiza a busca recursivamente
+        def buscarNo(noAtual, prefixoAtual):
+            if noAtual is None:
+                return None
+
+            # Verifica se o nó atual tem o código procurado
+            if noAtual.codigo == codigo:
+                return prefixoAtual + noAtual.prefixo
+
+            # Continua a busca nos descendentes (0 ou 1)
+            for i in range(2):
+                if noAtual.descendentes[i] is not None:
+                    resultado = buscarNo(noAtual.descendentes[i], prefixoAtual + noAtual.prefixo)
+                    if resultado:
+                        return resultado
+
+            return None
+
+        # Inicia a busca a partir da raiz
+        return buscarNo(self.raiz, "")
+
 
     def remover(self, string):
         def removerAux(noAtual, string, i):
