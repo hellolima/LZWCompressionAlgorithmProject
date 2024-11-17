@@ -30,7 +30,7 @@ class TrieCompacta:
             #verifica o prefixo comum entre a string e nó existente
             proximoNo = noAtual.descendentes[indice]
             j = 0
-            while j < len(proximoNo.prefixo) and i < len(string) and proximoNo.prefixo[j] == string[i]:
+            while j < len(proximoNo.prefixo) and i < len(string) - 1 and proximoNo.prefixo[j] == string[i]:
                 i += 1
                 j += 1
             
@@ -51,6 +51,7 @@ class TrieCompacta:
                 novoNoFolha = NoTrie()
                 novoNoFolha.prefixo = string[i:]
                 novoNoFolha.codigo = codigo
+                #print('posicao que estou tentando acessar = ', i, 'com conteudo: ', string[i], "e a string tem tamanho: ", len(string))
                 novoNoInterno.descendentes[int(string[i])] = novoNoFolha
                 self.tamanho += 1
                 return
