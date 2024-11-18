@@ -1,14 +1,15 @@
 Codificar uma entrada utilizando a implementação fixa:
-python3 main.py codificar entrada.txt codificacao.txt fixo
+python3 main.py codificar entrada.txt codificacao.bin fixo
 
 Codificar uma entrada utilizando a implementação variável sem especificar a quantidade máxima de bits (12 por default):
-python3 main.py codificar entrada.txt codificacao.txt variavel
+python3 main.py codificar entrada.txt codificacao.bin variavel
 
 Codificar uma entrada utilizando a implementação variavel especificando a quantidade máxima de bits como 12:
-python3 main.py codificar entrada.txt codificacao.txt variavel --bits 12
+python3 main.py codificar entrada.txt codificacao.bin variavel --bits 12
 
 Decodificar uma entrada utilizando a implementação fixa:
-python3 main.py decodificar codificacao.txt saidaDecodificada.txt fixo
+python3 main.py decodificar codificacao.bin saidaDecodificada.txt fixo
 
 Decodificar uma entrada utilizando a implementação variavel especificando a quantidade máxima de bits como 12:
-python3 main.py decodificar codificacao.txt saidaDecodificada.txt variavel --bits 12
+python3 main.py decodificar codificacao.bin saidaDecodificada.txt variavel --bits 12
+
