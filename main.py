@@ -12,7 +12,7 @@ def main():
     parser.add_argument('arquivoEntrada', help="Nome do arquivo de entrada (texto para codificação ou codificação para decodificação)")
     parser.add_argument('arquivoSaida', help="Nome do arquivo de saída (codificação ou decodificação)")
     parser.add_argument('tipoLzw', choices=['fixo', 'variavel'], default='fixo', help="Tipo de LZW (fixo ou variável)")
-    parser.add_argument('--bits', type=int, default=12, help="Quantidade máxima de bits (padrão: 12)") #b é opcional
+    parser.add_argument('--bits', type=int, default=12, help="Quantidade máxima de bits (padrão: 12)") # bits é opcional
 
     args = parser.parse_args()
 
