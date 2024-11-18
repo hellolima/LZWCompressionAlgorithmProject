@@ -4,7 +4,6 @@ class lzwTamanhoVariavel:
     def __init__(self, maxBits):
         self.dicionario = TrieCompacta()
         self.tamanhoMaxCodigos = maxBits
-        print(maxBits)
         self.tamanhoAtual = 9 # inicialmente 9 bits
         self.quantidadeMaxCodigos = pow(2, self.tamanhoMaxCodigos) 
         self.iniciarDicionario()
