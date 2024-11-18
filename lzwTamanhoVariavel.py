@@ -4,7 +4,6 @@ class lzwTamanhoVariavel:
     def __init__(self, maxBits):
         self.dicionario = TrieCompacta()
         self.tamanhoMaxCodigos = maxBits
-        print(maxBits)
         self.tamanhoAtual = 9 # inicialmente 9 bits
         self.quantidadeMaxCodigos = pow(2, self.tamanhoMaxCodigos) 
         self.iniciarDicionario()
@@ -53,8 +52,8 @@ class lzwTamanhoVariavel:
         novoCodigo = 256
 
         
-        cW = codificacao[:self.tamanhoAtual]  #pegando os primeiros 9 caracteres
-        codificacao = codificacao[self.tamanhoAtual:]  #remover os primeiros 9 caracteres da codificação
+        cW = codificacao[:self.tamanhoAtual]  # pegando os primeiros 9 caracteres
+        codificacao = codificacao[self.tamanhoAtual:]  # remover os primeiros 9 caracteres da codificação
 
         sequenciaCodigo = self.dicionario.buscarCodigo(int(''.join(cW), 2))  
         resultado.append(sequenciaCodigo)
@@ -66,11 +65,11 @@ class lzwTamanhoVariavel:
             codificacao = codificacao[self.tamanhoAtual:]  
             
             sequenciaCodigo = self.dicionario.buscarCodigo(int(''.join(cW), 2))
-            
+           
             if sequenciaCodigo is not None:
                 resultado.append(sequenciaCodigo)
                 prefixoAnterior = prefixo
-   
+                
                 sufixo = sequenciaCodigo[:self.tamanhoAtual]
                 novaString = prefixoAnterior + sufixo
                 self.dicionario.inserir(novaString, novoCodigo)
@@ -83,8 +82,9 @@ class lzwTamanhoVariavel:
                 resultado.append(novaString)
                 self.dicionario.inserir(novaString, novoCodigo)
                 novoCodigo += 1
-
-            prefixo = sequenciaCodigo
+            
+            if sequenciaCodigo is not None:
+                prefixo = sequenciaCodigo
 
             # verifica se é necessário aumentar o tamanho do código
             if novoCodigo >= pow(2, self.tamanhoAtual) and self.tamanhoAtual < self.tamanhoMaxCodigos:
