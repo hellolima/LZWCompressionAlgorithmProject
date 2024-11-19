@@ -33,7 +33,7 @@ def main():
             gravarEmBinario(codigos, args.arquivoSaida)
 
             if args.testes:
-                gerarRelatorio(instanciaSolucao1)
+                gerarRelatorioCompressao(instanciaSolucao1)
 
         elif args.operacao == 'decodificar':
             sequenciaCodificada = lerArquivoBinarioFixo(args.arquivoEntrada)
@@ -64,7 +64,7 @@ def main():
             gravarEmBinario(codigos, args.arquivoSaida)
 
             if args.testes:
-                gerarRelatorio(instanciaSolucao2)
+                gerarRelatorioCompressao(instanciaSolucao2)
                 
         elif args.operacao == 'decodificar':
             sequenciaCodificada = lerArquivoBinarioVariavel(args.arquivoEntrada)

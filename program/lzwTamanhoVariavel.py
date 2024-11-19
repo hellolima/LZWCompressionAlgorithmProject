@@ -13,7 +13,7 @@ class lzwTamanhoVariavel:
         self.totalOriginalBytes = 0  
         self.totalCodificadosBits = 0  
         self.totalLidosBits = 0  
-        self.totalEspacoDicionario = 256 * 64   
+        self.totalEspacoDicionario = (256 * 64)  + (256 * 9)
         self.tempoExecucaoCodificar = 0  
         self.tempoExecucaoDecodificar = 0  
 
@@ -46,7 +46,7 @@ class lzwTamanhoVariavel:
 
                 if self.dicionario.getTamanho() < self.quantidadeMaxCodigos:
                     self.dicionario.inserir(novoPrefixo, codigosInseridos)
-                    self.totalEspacoDicionario += 64
+                    self.totalEspacoDicionario += 64 + len(novoPrefixo)
                     codigosInseridos += 1
 
                     if codigosInseridos >= pow(2, self.tamanhoAtual) and self.tamanhoAtual < self.tamanhoMaxCodigos:

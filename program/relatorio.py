@@ -2,7 +2,7 @@ import os
 import matplotlib.pyplot as plt
 from lzwTamanhoFixo import *
 
-def gerarRelatorio(instancia):
+def gerarRelatorioCompressao(instancia):
     # Calcular a taxa de compressão final
     taxaCompressaoFinal = (1 - ((instancia.totalCodificadosBits / 8) / instancia.totalOriginalBytes)) * 100
     
