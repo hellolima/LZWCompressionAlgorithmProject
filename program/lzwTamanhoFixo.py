@@ -19,8 +19,8 @@ class lzwTamanhoFixo:
 
         self.taxaCompressao = []  
         self.tiposCodificacao = [] 
-        self.taxaDescompressao = []  # Lista para taxa de descompressão
-        self.tiposDescompressao = []  # Lista para tipos de descompressão
+        self.taxaDescompressao = [] 
+        self.tiposDescompressao = []  
      
 
     def iniciarDicionario(self):
@@ -66,7 +66,7 @@ class lzwTamanhoFixo:
         
         return codificacoes 
 
-    def decodificar(self, codificacao): 
+    def decodificar(self, codificacao):
         prefixoAnterior = ''
         sufixo = ''
         sequenciaCodigo = ''
@@ -74,12 +74,20 @@ class lzwTamanhoFixo:
         resultado = []
         novoCodigo = 256
         
+        self.totalOriginalBytes = len(codificacao) * 1.5 
+        momentosDescompressao = 1
+        self.totalLidosBits = len(codificacao) 
+        
         cW = codificacao.pop(0)
         sequenciaCodigo = self.dicionario.buscarCodigo(cW)
         resultado.append(sequenciaCodigo)
         
         prefixo = sequenciaCodigo
+        self.totalCodificadosBits += 12  # Considerando o primeiro código como 12 bits
+        
         for cW in codificacao:
+            self.totalLidosBits += 12
+            
             if self.dicionario.buscarCodigo(cW) is not None:
                 sequenciaCodigo = self.dicionario.buscarCodigo(cW)
                 resultado.append(sequenciaCodigo)
@@ -87,6 +95,7 @@ class lzwTamanhoFixo:
                 sufixo = sequenciaCodigo[:12]
                 novaString = prefixoAnterior + sufixo
                 self.dicionario.inserir(novaString, novoCodigo)
+                self.totalCodificadosBits += 12  # A cada código de 12 bits decodificado
                 novoCodigo += 1
             else:
                 prefixoAnterior = prefixo
@@ -94,8 +103,17 @@ class lzwTamanhoFixo:
                 novaString = prefixoAnterior + sufixo
                 resultado.append(novaString)
                 self.dicionario.inserir(novaString, novoCodigo)
+                self.totalCodificadosBits += 12  # A cada código de 12 bits decodificado
                 novoCodigo += 1
             prefixo = sequenciaCodigo
-        
+            
+            
 
+            # Calcular a taxa de compressão momentânea
+            taxaCompressao = (1 - ((self.totalLidosBits / 8) / (self.totalCodificadosBits / 8) )) * 100
+            self.taxaDescompressao.append(taxaCompressao)  
+            momentosDescompressao += 1
+            self.tiposDescompressao.append(momentosDescompressao)
+        
         return ''.join(resultado)
+

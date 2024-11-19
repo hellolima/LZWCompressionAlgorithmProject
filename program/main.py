@@ -42,8 +42,9 @@ def main():
             
             with open(args.arquivoSaida, 'w', encoding='utf-8') as arquivoSaida:
                 arquivoSaida.write(''.join(sequenciaDecodificada))
-            
-            print(f"Arquivo com a sequência decodificada gravado com sucesso em '{args.arquivoSaida}'.")
+                
+        if args.testes:
+                gerarRelatorioDescompressao(instanciaSolucao1)
             
     elif args.tipoLzw == 'variavel':
         
@@ -73,8 +74,9 @@ def main():
             
             with open(args.arquivoSaida, 'w', encoding='utf-8') as arquivoSaida:
                 arquivoSaida.write(''.join(sequenciaDecodificada))
-            
-            print(f"Arquivo com a sequência decodificada gravado com sucesso em '{args.arquivoSaida}'.")
+                
+            if args.testes:
+                gerarRelatorioDescompressao(instanciaSolucao2)
     
 
 if __name__ == "__main__":

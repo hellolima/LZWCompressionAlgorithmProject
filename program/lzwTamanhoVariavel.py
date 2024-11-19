@@ -19,6 +19,8 @@ class lzwTamanhoVariavel:
 
         self.taxaCompressao = []  
         self.tiposCodificacao = []  
+        self.taxaDescompressao = [] 
+        self.tiposDescompressao = []  
 
     def iniciarDicionario(self):
         for i in range(256):
@@ -73,14 +75,20 @@ class lzwTamanhoVariavel:
         resultado = []
         novoCodigo = 256
         
+        self.totalOriginalBytes = len(codificacao) / 8
+        momentosDescompressao = 1
+        self.totalLidosBits = len(codificacao) 
+        
         cW = codificacao[:self.tamanhoAtual]  
         codificacao = codificacao[self.tamanhoAtual:]  
         sequenciaCodigo = self.dicionario.buscarCodigo(int(''.join(cW), 2))
         resultado.append(sequenciaCodigo)
         
         prefixo = sequenciaCodigo
-
-        while codificacao:  
+        self.totalCodificadosBits += 9
+        
+        while codificacao:
+            self.totalLidosBits += self.tamanhoAtual
             cW = codificacao[:self.tamanhoAtual]  
             codificacao = codificacao[self.tamanhoAtual:]  
             
@@ -92,6 +100,7 @@ class lzwTamanhoVariavel:
                 sufixo = sequenciaCodigo[:self.tamanhoAtual]
                 novaString = prefixoAnterior + sufixo
                 self.dicionario.inserir(novaString, novoCodigo)
+                self.totalCodificadosBits += self.tamanhoAtual
                 novoCodigo += 1
             else:
                 prefixoAnterior = prefixo
@@ -99,6 +108,7 @@ class lzwTamanhoVariavel:
                 novaString = prefixoAnterior + sufixo
                 resultado.append(novaString)
                 self.dicionario.inserir(novaString, novoCodigo)
+                self.totalCodificadosBits += self.tamanhoAtual
                 novoCodigo += 1
 
             if sequenciaCodigo is not None:
@@ -107,4 +117,9 @@ class lzwTamanhoVariavel:
             if novoCodigo >= pow(2, self.tamanhoAtual) and self.tamanhoAtual < self.tamanhoMaxCodigos:
                 self.tamanhoAtual += 1
 
+            taxaCompressao = (1 - ((self.totalLidosBits / 8) / (self.totalCodificadosBits / 8) )) * 100
+            self.taxaDescompressao.append(taxaCompressao)  
+            momentosDescompressao += 1
+            self.tiposDescompressao.append(momentosDescompressao)
+            
         return ''.join(resultado)
