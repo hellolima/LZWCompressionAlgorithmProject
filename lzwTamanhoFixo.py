@@ -13,7 +13,7 @@ class lzwTamanhoFixo:
         self.totalOriginalBytes = 0  
         self.totalCodificadosBits = 0  
         self.totalLidosBits = 0  
-        self.totalEntradasDicionario = 0  
+        self.totalEspacoDicionario = 256 * 64 
         self.tempoExecucaoCodificar = 0  
         self.tempoExecucaoDecodificar = 0  
 
@@ -46,6 +46,7 @@ class lzwTamanhoFixo:
                 
                 if self.dicionario.getTamanho() < self.quantidadeMaxCodigos:
                     self.dicionario.inserir(novoPrefixo, self.dicionario.getTamanho())
+                    self.totalEspacoDicionario += 64 # assumindo que cada inteiro ocupa 64 bits. Em python esse é o máximo.
                 prefixo = caractere
 
             taxaCompressao = (1 - (self.totalCodificadosBits / 8) / (self.totalLidosBits / 8) ) * 100 # queremos esse numero menor que 1 (na verdade que 100, pois estamos pegando %)
@@ -59,7 +60,6 @@ class lzwTamanhoFixo:
             self.totalCodificadosBits += 12
         
         self.tempoExecucaoCodificar = time.time() - start_time  
-        self.totalEntradasDicionario = self.dicionario.getTamanho()  
         
         return codificacoes 
 
