@@ -1,0 +1,7 @@
+===================== Relatório de Compressão LZW =====================
+Tamanho do Texto Original (em bytes): 9.00
+Tamanho do Texto Codificado (em bytes): 6.75
+Taxa de Compressão Final: 25.00%
+Quantidade de códigos no dicionário: 261
+Tempo de Execução da Codificação: 0.0001 segundos
+=======================================================================

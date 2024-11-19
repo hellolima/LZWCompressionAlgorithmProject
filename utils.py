@@ -10,7 +10,6 @@ def converterTextoBinario9bits(texto):
 
 
 def gravarEmBinario(codigos, arquivoSaida):
-    print('entrou para gravar em bianrio')
     # junta todos os códigos do vetor em uma única string binária
     stringBinaria = ''.join(codigos)
     
@@ -42,7 +41,6 @@ def lerArquivoBinarioVariavel(arquivoEntrada):
     return vetorBits
 
 def lerBitmapFixo(arquivoEntrada):
-    print('entrou aqui')
     imagem = Image.open(arquivoEntrada)
     imagem = imagem.convert('RGB')
     
