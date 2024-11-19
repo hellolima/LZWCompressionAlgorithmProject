@@ -20,12 +20,16 @@ def main():
         instanciaSolucao1 = lzwTamanhoFixo()
         
         if args.operacao == 'codificar':
-            with open(args.arquivoEntrada, 'r', encoding='utf-8') as arquivo:
-                texto = arquivo.read()
+            if args.arquivoEntrada.endswith('.txt'):
+                with open(args.arquivoEntrada, 'r', encoding='utf-8') as arquivo:
+                    texto = arquivo.read()
+                
+                
+            elif args.arquivoEntrada.endswith('.bmp'):
+                texto = lerBitmapFixo(args.arquivoEntrada)
             
             binarioTexto = converterTextoBinario12bits(texto)
             codigos = instanciaSolucao1.codificar(binarioTexto) # listas com codigos de 12 bits
-            
             gravarEmBinario(codigos, args.arquivoSaida)
 
         elif args.operacao == 'decodificar':
@@ -45,14 +49,17 @@ def main():
         instanciaSolucao2 = lzwTamanhoVariavel(maxBits)
         
         if args.operacao == 'codificar':
-            with open(args.arquivoEntrada, 'r', encoding='utf-8') as arquivo:
-                texto = arquivo.read()
-            
+            if args.arquivoEntrada.endswith('.txt'):
+                with open(args.arquivoEntrada, 'r', encoding='utf-8') as arquivo:
+                    texto = arquivo.read()
+                
+            elif args.arquivoEntrada.endswith('.bmp'):
+                texto = lerBitmapVariavel(args.arquivoEntrada)
+                
             binarioTexto = converterTextoBinario9bits(texto) 
             codigos = instanciaSolucao2.codificar(binarioTexto) # cada bloco em uma posicao
-            
             gravarEmBinario(codigos, args.arquivoSaida)
-
+                
         elif args.operacao == 'decodificar':
             sequenciaCodificada = lerArquivoBinarioVariavel(args.arquivoEntrada)
             

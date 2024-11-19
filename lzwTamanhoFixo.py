@@ -38,7 +38,7 @@ class lzwTamanhoFixo:
             codigoPrefixo = self.dicionario.buscarString(prefixo)
             codificacoes.append(format(codigoPrefixo, '012b'))
         
-        return codificacoes
+        return codificacoes 
 
     
     def decodificar(self, codificacao): #codificacao é uma lista com todos os codigos
