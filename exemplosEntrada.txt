@@ -1,31 +1,25 @@
-
-
 Codificar uma entrada utilizando a implementação fixa:
-python3 main.py codificar entrada.txt codificacao.bin fixo
+python3 program/main.py codificar entrada.txt codificacao.bin fixo
 **Com a tag `--testes`:**
-python3 main.py codificar entrada.txt codificacao.bin fixo --testes
+python3 program/main.py codificar entrada.txt codificacao.bin fixo --testes
 
 Codificar uma entrada utilizando a implementação variável sem especificar a quantidade máxima de bits (12 por default):
-python3 main.py codificar entrada.txt codificacao.bin variavel
+python3 program/main.py codificar entrada.txt codificacao.bin variavel
 Com a tag `--testes` para gerar o relatótio:
-python3 main.py codificar entrada.txt codificacao.bin variavel --testes
+python3 program/main.py codificar entrada.txt codificacao.bin variavel --testes
 
 Codificar uma entrada utilizando a implementação variável especificando a quantidade máxima de bits como 12:
-python3 main.py codificar entrada.txt codificacao.bin variavel --bits 12
+python3 program/main.py codificar entrada.txt codificacao.bin variavel --bits 12
 Com a tag `--testes` para gerar o relatótio:
-python3 main.py codificar entrada.txt codificacao.bin variavel --bits 12 --testes
+python3 program/main.py codificar entrada.txt codificacao.bin variavel --bits 12 --testes
 
 Decodificar uma entrada utilizando a implementação fixa:
-python3 main.py decodificar codificacao.bin saidaDecodificada.txt fixo
-Com a tag `--testes` para gerar o relatótio:
-python3 main.py decodificar codificacao.bin saidaDecodificada.txt fixo --testes
+python3 program/main.py decodificar codificacao.bin saidaDecodificada.txt fixo
 
 Decodificar uma entrada utilizando a implementação variável especificando a quantidade máxima de bits como 12:
-python3 main.py decodificar codificacao.bin saidaDecodificada.txt variavel --bits 12
-Com a tag `--testes` para gerar o relatótio:
-python3 main.py decodificar codificacao.bin saidaDecodificada.txt variavel --bits 12 --testes
+python3 program/main.py decodificar codificacao.bin saidaDecodificada.txt variavel --bits 12
 
 Codificar a imagem da My Melody utilizando a implementação fixa:
-python3 main.py codificar myMelodyImage.bmp codificacao.bin fixo
+python3 program/main.py codificar myMelodyImage.bmp codificacao.bin fixo
 Com a tag `--testes` para gerar o relatótio:
-python3 main.py codificar myMelodyImage.bmp codificacao.bin fixo --testes
+python3 program/main.py codificar myMelodyImage.bmp codificacao.bin fixo --testes
