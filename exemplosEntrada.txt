@@ -14,4 +14,4 @@ Decodificar uma entrada utilizando a implementação variavel especificando a qu
 python3 main.py decodificar codificacao.bin saidaDecodificada.txt variavel --bits 12
 
 Codificar a imagem da My Melody:
-python3 main.py codificar png-transparent-melody-art-my-melody-hello-kitty-character-my-melody-miscellaneous-flower-fictional-.bmp  codificacao.bin variavel
+python3 main.py codificar myMelodyImage.bmp  codificacao.bin variavel
