@@ -125,6 +125,9 @@ window.Quarto = {
 </header>
 
 
+<section id="gabriella-de-lima-araujo" class="level2">
+<h2 class="anchored" data-anchor-id="gabriella-de-lima-araujo">Gabriella de Lima Araujo</h2>
+</section>
 <section id="índice" class="level2">
 <h2 class="anchored" data-anchor-id="índice">Índice</h2>
 <p><a href="#introdução">Introdução</a></p>
@@ -144,7 +147,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="máquina-e-especificações">Máquina e Especificações</h2>
 <p>O trabalho foi implementado utilizando o sistema operacional <strong>Pop_OS</strong>, 16 GB de RAM e um processador <strong>Intel Core i5 de 11ª geração</strong>. Foi também utilizado o Python (versão 3.10.12).</p>
 <p>A escolha pelo Python se deu pelo fato da oportunidade de implementar algo mais complexo nesta linguagem, além da facilidade proporcionada por algumas funções existentes. Um exemplo disso é o seguinte trecho de código extraído do projeto:</p>
-<div id="8db561e2" class="cell" data-execution_count="1">
+<div id="79f8021a" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>numero <span class="op">=</span> <span class="dv">6</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>representacaoBinaria <span class="op">=</span> <span class="bu">format</span>(numero, <span class="st">'012b'</span>)</span>
@@ -178,7 +181,7 @@ window.Quarto = {
 </ol>
 <p>Por questões de complexidade, preferi implementar a forma 1.</p>
 <p>Além disso, ao iniciar uma instância dos problemas, uma trie contendo todos os símbolos do alfabeto ASCII estendido é criada. Neste projeto, cada símbolo foi representado em sua forma binária e, por esse motivo, cada nó da trie pode ter até dois filhos: 0 ou 1.</p>
-<div id="b6d7a3d0" class="cell" data-execution_count="2">
+<div id="24e6deaa" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> NoTrie:</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.descendentes <span class="op">=</span> [<span class="va">None</span>] <span class="op">*</span> <span class="dv">2</span>  </span>
@@ -211,7 +214,7 @@ window.Quarto = {
 <section id="implementação-fixa" class="level3">
 <h3 class="anchored" data-anchor-id="implementação-fixa">Implementação fixa</h3>
 <p>Na implementação utilizando uma abordagem fixa de bits do método LZW, o número de bits foi fixado em 12 e é possível representar até <span class="math inline">\(2^{12}\)</span> códigos, essa quantidade máxima foi limitada como</p>
-<div id="7e89af04" class="cell" data-execution_count="3">
+<div id="5d4ff346" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>quantidadeMaxCodigos <span class="op">=</span> <span class="bu">pow</span>(<span class="dv">2</span>, <span class="dv">12</span>)        </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Durante a execução do programa sempre é verificado se ultrapassamos ou não essa quantidade, para garantir que a árvore trie não cresça mais que o estabelecido.</p>
@@ -388,6 +391,42 @@ window.Quarto = {
 <p>Portanto, mesmo que a quantidade de códigos tenha diminuído, o tamanho final em bits não estava refletindo uma compressão eficiente.</p>
 <p>Para contornar essa situação, utilizei uma biblioteca Python chamada bitString e foi possível gravar a codificação de uma forma que deixasse explícito a compressão.</p>
 <p>Além disso, seria muito útil ter registrado a saída decodificada durante o processo de descompressão em sua representação como caracteres (especialmente para textos), pois isso facilitaria a visualização do resultado e tornaria o processo mais intuitivo. No entanto, encontrei dificuldades ao tentar criar um método que funcionasse de maneira eficaz tanto para a abordagem fixa quanto para a variável.</p>
+</section>
+<section id="como-rodar-o-código" class="level2">
+<h2 class="anchored" data-anchor-id="como-rodar-o-código">Como rodar o código</h2>
+<section id="clone-o-repositório" class="level3">
+<h3 class="anchored" data-anchor-id="clone-o-repositório">1. Clone o repositório</h3>
+<p>Primeiro, clone este repositório para a sua máquina:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone git@github.com:hellolima/LZWCompressionAlgorithmProject.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="pré-requisitos" class="level3">
+<h3 class="anchored" data-anchor-id="pré-requisitos">2. Pré-requisitos</h3>
+<p>Para codificar, tenha um arquivo <code>entrada.txt</code> ou um arquivo <code>.bmp</code> no seu repositório. Para decodificar, tenha um arquivo <code>codificacao.bin</code> no seu repositório.</p>
+</section>
+<section id="codificar-arquivos" class="level3">
+<h3 class="anchored" data-anchor-id="codificar-arquivos">3. Codificar arquivos</h3>
+<p>Usando a implementação fixa (onde o número de bits é fixado):</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> program/main.py codificar entrada.txt codificacao.bin fixo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Gerar relatório e gráfico de estatísticas:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> program/main.py codificar entrada.txt codificacao.bin fixo <span class="at">--testes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Usando a implementação variável (onde o número de bits pode variar, aqui utilizamos limite máximo de 12 bits):</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> program/main.py codificar entrada.txt codificacao.bin variavel <span class="at">--bits</span> 12</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Gerar relatório e gráfico de estatísticas:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> program/main.py codificar entrada.txt codificacao.bin variavel <span class="at">--bits</span> 12 <span class="at">--testes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Nota: Não é obrigatorio informar a quantidade máxima de bits. Caso não seja informada, o valor padrão será de 12 bits.</p>
+</section>
+<section id="decodificar-arquivos" class="level3">
+<h3 class="anchored" data-anchor-id="decodificar-arquivos">4. Decodificar arquivos</h3>
+<p>Usando a implementação fixa:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> program/main.py decodificar codificacao.bin saidaDecodificada.txt fixo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Usando a implementação variável (com limite máximo de 12 bits):</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> program/main.py decodificar codificacao.bin saidaDecodificada.txt variavel <span class="at">--bits</span> 12</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>A flag testes também pode ser utilizada na decodificação.</p>
+</section>
+<section id="observações-importantes" class="level3">
+<h3 class="anchored" data-anchor-id="observações-importantes">5. Observações importantes</h3>
+<p>Decodificação: Um arquivo só pode ser decodificado utilizando a abordagem fixa se ele foi codificado utilizando a abordagem fixa. O mesmo vale para a abordagem variável. Limite de bits: Caso esteja utilizando a abordagem variável, atente-se ao limite de bits informado, que deve ser o mesmo utilizado durante a codificação.</p>
+</section>
 </section>
 <section id="referências" class="level2">
 <h2 class="anchored" data-anchor-id="referências">Referências</h2>
