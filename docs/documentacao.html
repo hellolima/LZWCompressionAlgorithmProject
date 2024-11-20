@@ -144,7 +144,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="máquina-e-especificações">Máquina e Especificações</h2>
 <p>O trabalho foi implementado utilizando o sistema operacional <strong>Pop_OS</strong>, 16 GB de RAM e um processador <strong>Intel Core i5 de 11ª geração</strong>. Foi também utilizado o Python (versão 3.10.12).</p>
 <p>A escolha pelo Python se deu pelo fato da oportunidade de implementar algo mais complexo nesta linguagem, além da facilidade proporcionada por algumas funções existentes. Um exemplo disso é o seguinte trecho de código extraído do projeto:</p>
-<div id="c9f7207b" class="cell" data-execution_count="1">
+<div id="8db561e2" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>numero <span class="op">=</span> <span class="dv">6</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>representacaoBinaria <span class="op">=</span> <span class="bu">format</span>(numero, <span class="st">'012b'</span>)</span>
@@ -178,7 +178,7 @@ window.Quarto = {
 </ol>
 <p>Por questões de complexidade, preferi implementar a forma 1.</p>
 <p>Além disso, ao iniciar uma instância dos problemas, uma trie contendo todos os símbolos do alfabeto ASCII estendido é criada. Neste projeto, cada símbolo foi representado em sua forma binária e, por esse motivo, cada nó da trie pode ter até dois filhos: 0 ou 1.</p>
-<div id="6af5d666" class="cell" data-execution_count="2">
+<div id="b6d7a3d0" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> NoTrie:</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.descendentes <span class="op">=</span> [<span class="va">None</span>] <span class="op">*</span> <span class="dv">2</span>  </span>
@@ -211,7 +211,7 @@ window.Quarto = {
 <section id="implementação-fixa" class="level3">
 <h3 class="anchored" data-anchor-id="implementação-fixa">Implementação fixa</h3>
 <p>Na implementação utilizando uma abordagem fixa de bits do método LZW, o número de bits foi fixado em 12 e é possível representar até <span class="math inline">\(2^{12}\)</span> códigos, essa quantidade máxima foi limitada como</p>
-<div id="22a852f6" class="cell" data-execution_count="3">
+<div id="7e89af04" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>quantidadeMaxCodigos <span class="op">=</span> <span class="bu">pow</span>(<span class="dv">2</span>, <span class="dv">12</span>)        </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Durante a execução do programa sempre é verificado se ultrapassamos ou não essa quantidade, para garantir que a árvore trie não cresça mais que o estabelecido.</p>
