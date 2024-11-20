@@ -4,4 +4,6 @@ Este repositório contém a implementação do algoritmo LZW (Lempel-Ziv-Welch) 
 
 O dicionário utilizado foi implementado como uma Trie compacta, na qual os prefixos são associados a códigos, permitindo uma compressão eficiente.
 
-Para uma documentação mais detalhada, incluindo explicações sobre escolhas de projeto e resultados obtidos, acesse a página [adicionar link depois].
+Para uma documentação mais detalhada, incluindo explicações sobre escolhas de projeto e resultados obtidos, acesse a página [https://hellolima.github.io/LZWCompressionAlgorithmProject/](https://hellolima.github.io/LZWCompressionAlgorithmProject/).
+
+Obs.: Tive muita dificuldade em configurar o GitHub Pages, caso a página esteja indisponível, por favor, acesse a documentação em pdf.
